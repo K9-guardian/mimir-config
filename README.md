@@ -1,11 +1,7 @@
 # Configs for mimir
 
 Usage: 
-First import keys from backup.
 ```
-sudo dnf install git git-crypt -y
-git-crypt unlock
-
 ./install
 
 # add a system user
