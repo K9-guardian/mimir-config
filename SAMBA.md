@@ -1,7 +1,9 @@
 # Samba for mimir
 
 TODO: Figure out how to automate this?
+
 Copy the shares from `smbshares.conf` into `/etc/samba/smbshares.conf`
+
 Run `sudo systemctl restart smb`
 
 ```
