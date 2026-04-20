@@ -63,7 +63,7 @@ services:
     container_name: syncthing
     hostname: mimir
     environment:
-      - PGID=1003
+      - PGID=1002
       - PUID=1002
     volumes:
       - syncthing_config:/var/syncthing:Z
@@ -79,7 +79,7 @@ services:
     image: tinymediamanager/tinymediamanager:latest
     container_name: tinymediamanager
     environment:
-      - USER_ID=1003
+      - USER_ID=1002
       - GROUP_ID=1002
       - ALLOW_DIRECT_VNC=true
       - LC_ALL=en_US.UTF-8
