@@ -1,2 +1,40 @@
+A big (but useful) refactor will be migrating from podman compose to quadlets.
+As part of this migration, we should also switch to using rootless podman.
+
+This will add a lot of complexity in our configuration, so we will additionally
+need to migrate this stack to ansible. We want ansible anyway for configuring
+firewalld.
+
+We have the following containers
+- jellyfin
+- gluetun
+- tinymediamanager
+- slskd
+- transmission
+- syncthing
+
+jellyfin should be running rootless under podman.
+
+gluetun, slskd, and transmission should be running rootless under podman.
+These also need to run together - they need the gluetun network.
+gluetun also needs to manipulate slskd's volume to pass the forwarded port.
+I think this is best done with kube yaml instead of quadlets.
+
+tinymediamanager should be running rootless under k9.
+syncthing should be running rootless under k9.
+
+Also for references, these are our volumes. These are prefixed with `mimir`
+because that was the pod name. I think this will probably be updated to be
+prefixed with the user, so `podman` or `k9`.
+```
+DRIVER      VOLUME NAME
+local       mimir_jellyfin_config
+local       mimir_jellyfin_cache
+local       mimir_slskd_app
+local       mimir_syncthing_config
+local       mimir_tinymediamanager_data
+local       mimir_transmission_config
+```
+
 - Syncthing between mimir/helios/thinkpad
 - Automated backups with rclone (especially for podman volumes)
