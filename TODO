@@ -38,6 +38,9 @@ local       mimir_transmission_config
 
 Also all our services should be cleaned up with healthchecks, etc.
 
+- Use tailscale ACL as source of truth for firewall configuration
+  - This saves having to configure both tailscale and firewalld
+  - We'll want to setup ansible with the ACL so we can version control this
 - Syncthing between mimir/helios/thinkpad
   - Music is setup
   - Right now I have my books in ~/Documents. This definitely becomes problematic with syncthing.
