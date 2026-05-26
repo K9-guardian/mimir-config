@@ -36,5 +36,12 @@ local       mimir_tinymediamanager_data
 local       mimir_transmission_config
 ```
 
+Also all our services should be cleaned up with healthchecks, etc.
+
 - Syncthing between mimir/helios/thinkpad
+  - Music is setup
+  - Right now I have my books in ~/Documents. This definitely becomes problematic with syncthing.
+    - Best to just move ~/Documents/Books to ~/Books I think.
+  - Games should be setup for urdr
+  - Videos... should be setup, but it's not happening for a while :(.
 - Automated backups with rclone (especially for podman volumes)
