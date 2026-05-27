@@ -1,0 +1,68 @@
+- name: Create nasusers group
+  ansible.builtin.group:
+    name: nasusers
+    state: present
+
+- name: Create podman user
+  ansible.builtin.user:
+    name: podman
+    uid: 1500
+    shell: /sbin/nologin
+    create_home: true
+    groups: nasusers
+    append: true
+    state: present
+
+- name: Enable linger for podman
+  ansible.builtin.command:
+    cmd: loginctl enable-linger podman
+    creates: "/var/lib/systemd/linger/podman"
+  become: true
+
+- name: Configure SELinux for services
+  become: true
+  vars:
+    directories:
+      - "/mnt/nas/share"
+      - "/mnt/scratch/slskd"
+      - "/mnt/scratch/transmission"
+  block:
+    - name: Ensure directories exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: podman
+        group: nasusers
+        mode: '0750'
+      loop: "{{ directories }}"
+
+    - name: Configure SELinux context
+      community.general.sefcontext:
+        setype: public_content_rw_t
+        path: "{{ item }}(/.*)?"
+        state: present
+      loop: "{{ directories }}"
+      vars:
+        ansible_python_interpreter: "/usr/bin/python" # Use system python for libselinux-python
+      register: fcontext_changes
+
+    - name: Restore SELinux context
+      ansible.builtin.command:
+        cmd: "restorecon -F -R -v {{ item }}"
+      loop: "{{ directories }}"
+      when: fcontext_changes.changed
+      changed_when: true
+
+- name: Allow containers to read/write to public content
+  become: true
+  ansible.posix.seboolean:
+    name: container_manage_public_content
+    state: true
+    persistent: true
+
+- name: Allow containers to use devices
+  become: true
+  ansible.posix.seboolean:
+    name: container_use_devices
+    state: true
+    persistent: true
