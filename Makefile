@@ -1,4 +1,4 @@
-ANSIBLE_PLAYBOOK := $(HOME)/.local/ansible-venv/bin/ansible-playbook
+ANSIBLE_PLAYBOOK := /opt/ansible-venv/bin/ansible-playbook
 _TAGS := $(if $(TAGS),--tags $(TAGS))
 
 .PHONY: install check lint
