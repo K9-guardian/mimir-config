@@ -5,4 +5,5 @@
   roles:
     - { role: nvidia,  tags: nvidia }
     - { role: selinux, tags: selinux }
+    - { role: samba,   tags: samba }
     - { role: podman,  tags: podman }

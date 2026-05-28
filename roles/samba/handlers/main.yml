@@ -1,0 +1,6 @@
+- name: Restart samba service
+  become: true
+  ansible.builtin.systemd:
+    name: "smb"
+    state: restarted
+    enabled: true

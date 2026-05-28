@@ -1,0 +1,17 @@
+- name: Install samba
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - samba
+    state: present
+
+- name: Deploy samba configuration
+  become: true
+  ansible.builtin.copy:
+    src: "files/smb.conf"
+    dest: "/etc/samba/smb.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart samba service
