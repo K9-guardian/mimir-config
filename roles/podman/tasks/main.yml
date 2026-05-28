@@ -33,4 +33,4 @@
     mode: '0644'
   notify:
     - Reload podman systemd
-    - Start podman quadlets
+    - Restart podman quadlets
