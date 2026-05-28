@@ -1,0 +1,50 @@
+- name: Enable AlmaLinux NVIDIA driver repository
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - almalinux-release-nvidia-driver
+    state: present
+
+- name: Install NVIDIA drivers
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - nvidia-open-kmod
+      - nvidia-driver
+    state: present
+
+- name: Load nvidia_drm kernel module
+  community.general.modprobe:
+    name: nvidia_drm
+    state: present
+
+- name: Add NVIDIA Container Toolkit repository
+  become: true
+  ansible.builtin.yum_repository:
+    name: nvidia-container-toolkit
+    description: NVIDIA Container Toolkit
+    baseurl: "https://nvidia.github.io/libnvidia-container/stable/rpm/x86_64"
+    enabled: true
+    gpgcheck: true
+    gpgkey: "https://nvidia.github.io/libnvidia-container/gpgkey"
+    module_hotfixes: true
+    priority: 30
+
+- name: Install NVIDIA Container Toolkit
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - nvidia-container-toolkit
+      - nvidia-container-toolkit-base
+    state: present
+  notify: Restart nvidia-cdi-refresh
+
+- name: Enable nvidia-cdi-refresh service
+  become: true
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - nvidia-cdi-refresh.service
+    - nvidia-cdi-refresh.path

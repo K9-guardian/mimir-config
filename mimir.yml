@@ -3,5 +3,6 @@
   vars_files:
     - "vars/user_vaults/vault_{{ lookup('env', 'USER') }}.yml"
   roles:
+    - { role: nvidia,  tags: nvidia }
     - { role: selinux, tags: selinux }
     - { role: podman,  tags: podman }
