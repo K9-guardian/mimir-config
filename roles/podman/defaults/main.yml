@@ -1,0 +1,3 @@
+podman_uid: 1500
+podman_quadlets:
+  - jellyfin

@@ -1,0 +1,16 @@
+- name: Reload podman systemd
+  become: true
+  become_user: podman
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+
+- name: Start podman quadlets
+  become: true
+  become_user: podman
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+    scope: user
+  loop: "{{ podman_quadlets }}"

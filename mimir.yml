@@ -4,3 +4,4 @@
     - "vars/user_vaults/vault_{{ lookup('env', 'USER') }}.yml"
   roles:
     - { role: common, tags: common }
+    - { role: podman, tags: podman }

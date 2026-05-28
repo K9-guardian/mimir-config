@@ -1,0 +1,36 @@
+- name: Create podman user
+  ansible.builtin.user:
+    name: podman
+    uid: "{{ podman_uid }}"
+    shell: "/sbin/nologin"
+    create_home: true
+    groups: nasusers
+    append: true
+    state: present
+
+- name: Enable linger for podman
+  ansible.builtin.command:
+    cmd: loginctl enable-linger podman
+    creates: "/var/lib/systemd/linger/podman"
+  become: true
+
+- name: Create quadlets folder for podman containers
+  become: true
+  ansible.builtin.file:
+    path: "/etc/containers/systemd/users/{{ podman_uid }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy podman quadlets
+  become: true
+  ansible.builtin.copy:
+    src: "files/quadlets/"
+    dest: "/etc/containers/systemd/users/{{ podman_uid }}/"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload podman systemd
+    - Start podman quadlets
