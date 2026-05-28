@@ -31,7 +31,7 @@
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
-        owner: podman
+        owner: root
         group: nasusers
         mode: '0750'
       loop: "{{ directories }}"
@@ -42,8 +42,6 @@
         path: "{{ item }}(/.*)?"
         state: present
       loop: "{{ directories }}"
-      vars:
-        ansible_python_interpreter: "/usr/bin/python" # Use system python for libselinux-python
       register: fcontext_changes
 
     - name: Restore SELinux context
