@@ -3,22 +3,6 @@
     name: nasusers
     state: present
 
-- name: Create podman user
-  ansible.builtin.user:
-    name: podman
-    uid: 1500
-    shell: /sbin/nologin
-    create_home: true
-    groups: nasusers
-    append: true
-    state: present
-
-- name: Enable linger for podman
-  ansible.builtin.command:
-    cmd: loginctl enable-linger podman
-    creates: "/var/lib/systemd/linger/podman"
-  become: true
-
 - name: Configure SELinux for services
   become: true
   vars:
