@@ -2,10 +2,6 @@
 Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
 Easiest to hardcode the disk UUIDs for this.
 
-# SMB
-Self explanatory I think, just need to manage SMB via systemctl and copy
-smbshares.conf
-
 # Containers
 - Separate wireguard VPN for port forwarding for transmission
 - Probably need kube yaml for transmission/slskd to spin up gluetun for them
