@@ -1,3 +1,26 @@
-Containers
-SMB
-Tailscale ACL/Grants
+# Nvidia
+This should be an easy win. Just need a role to setup the CDI for podman.
+
+# Tailscale
+Starting with this because it seems interesting. Tailscale grants are currently
+being used to control who has access to what on the tailnet. I like this system
+- it's good enough that we can skip using firewalld for the most part and just
+trust tailscale.
+
+Tailscale grants are setup as json. I want a system where each system on the
+tailnet specifies its own json for who can access it.
+
+# Containers
+- Separate wireguard VPN for port forwarding for transmission
+- Probably need kube yaml for transmission/slskd to spin up gluetun for them
+- tinymediamanager and syncthing should get moved to an entirely separate repo
+  - I don't think there's any significant code duplication here, so probably
+    don't need a shared task
+
+# LVM
+Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
+Easiest to hardcode the disk UUIDs for this.
+
+# SMB
+Self explanatory I think, just need to manage SMB via systemctl and copy
+smbshares.conf
