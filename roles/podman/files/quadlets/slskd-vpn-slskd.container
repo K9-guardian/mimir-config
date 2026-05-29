@@ -1,0 +1,15 @@
+[Unit]
+Requires=slskd-vpn-gluetun.service
+After=slskd-vpn-gluetun.service
+
+[Container]
+AutoUpdate=registry
+ContainerName=slskd
+GroupAdd=keep-groups
+EnvironmentFile=slskd-vpn-slskd.env
+Environment=SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r SLSKD_SHARED_DIR=/share SLSKD_REMOTE_CONFIGURATION=true SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete
+Image=docker.io/slskd/slskd:latest
+Pod=slskd-vpn.pod
+Volume=slskd_app:/app:z
+Volume=/mnt/nas/share:/share:ro
+Volume=/mnt/scratch/slskd:/files
