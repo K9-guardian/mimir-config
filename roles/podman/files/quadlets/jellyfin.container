@@ -10,8 +10,5 @@ Volume=jellyfin_config:/config:Z
 Volume=jellyfin_cache:/cache:Z
 Volume=/mnt/nas/share:/media:ro
 
-[Service]
-Restart=always
-
 [Install]
 WantedBy=default.target
