@@ -7,7 +7,7 @@ AutoUpdate=registry
 ContainerName=slskd
 GroupAdd=keep-groups
 EnvironmentFile=slskd-vpn-slskd.env
-Environment=SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r SLSKD_SHARED_DIR=/share SLSKD_REMOTE_CONFIGURATION=true SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete
+Environment=SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r SLSKD_UMASK=006 SLSKD_SHARED_DIR=/share SLSKD_REMOTE_CONFIGURATION=true SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete
 Image=docker.io/slskd/slskd:latest
 Pod=slskd-vpn.pod
 Volume=slskd_app:/app:z
