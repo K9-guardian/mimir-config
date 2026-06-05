@@ -34,6 +34,8 @@
     group: root
     mode: '0644'
   notify:
+    - Configure SELinux context for slskd gluetun config
+    - Restore SELinux context for slskd gluetun config
     - Reload podman systemd
     - Restart podman slskd
 
