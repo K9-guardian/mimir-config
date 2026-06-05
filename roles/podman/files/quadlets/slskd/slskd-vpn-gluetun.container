@@ -2,10 +2,9 @@
 AddCapability=NET_ADMIN NET_RAW
 AddDevice=/dev/net/tun:/dev/net/tun
 ContainerName=slskd-vpn-gluetun
-GroupAdd=keep-groups
-EnvironmentFile=slskd-vpn-gluetun.env
 Environment=VPN_SERVICE_PROVIDER=protonvpn VPN_TYPE=wireguard VPN_PORT_FORWARDING=on "SERVER_COUNTRIES=United States"
+EnvironmentFile=slskd-vpn-gluetun.env
+GroupAdd=keep-groups
 Image=docker.io/qmcgaw/gluetun:latest
 Pod=slskd-vpn.pod
 Volume=./slskd-vpn-gluetun-config.toml:/gluetun/auth/config.toml:ro
-Volume=slskd_app:/slskd_app:z
