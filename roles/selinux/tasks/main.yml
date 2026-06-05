@@ -1,8 +1,3 @@
-- name: Create nasusers group
-  ansible.builtin.group:
-    name: nasusers
-    state: present
-
 - name: Configure SELinux for services
   become: true
   vars:
@@ -11,15 +6,6 @@
       - "/mnt/scratch/slskd"
       - "/mnt/scratch/transmission"
   block:
-    - name: Ensure directories exist
-      ansible.builtin.file:
-        path: "{{ item }}"
-        state: directory
-        owner: root
-        group: nasusers
-        mode: '0750'
-      loop: "{{ directories }}"
-
     - name: Configure SELinux context
       community.general.sefcontext:
         setype: public_content_rw_t
