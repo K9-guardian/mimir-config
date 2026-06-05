@@ -16,7 +16,7 @@
 
     - name: Restore SELinux context
       ansible.builtin.command:
-        cmd: "restorecon -F -R -v {{ item }}"
+        cmd: "restorecon -rF {{ item }}"
       loop: "{{ directories }}"
       when: fcontext_changes.changed
       changed_when: true
