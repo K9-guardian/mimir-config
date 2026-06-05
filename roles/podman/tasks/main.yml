@@ -1,15 +1,3 @@
-- name: Create podman user
-  become: true
-  ansible.builtin.user:
-    name: podman
-    uid: "{{ podman_uid }}"
-    shell: "/sbin/nologin"
-    create_home: true
-    group: podman
-    groups: nasusers
-    append: true
-    state: present
-
 - name: Enable linger for podman
   ansible.builtin.command:
     cmd: loginctl enable-linger podman
@@ -25,14 +13,38 @@
     group: root
     mode: '0755'
 
-- name: Copy podman quadlets
+- name: Copy jellyfin quadlets
   become: true
   ansible.builtin.copy:
-    src: "files/quadlets/"
+    src: "files/quadlets/jellyfin/"
     dest: "/etc/containers/systemd/users/{{ podman_uid }}/"
     owner: root
     group: root
     mode: '0644'
   notify:
     - Reload podman systemd
-    - Restart podman quadlets
+    - Restart podman jellyfin
+
+- name: Copy slskd quadlets
+  become: true
+  ansible.builtin.copy:
+    src: "files/quadlets/slskd/"
+    dest: "/etc/containers/systemd/users/{{ podman_uid }}/"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload podman systemd
+    - Restart podman slskd
+
+# - name: Copy transmission quadlets
+#   become: true
+#   ansible.builtin.copy:
+#     src: "files/quadlets/transmission/"
+#     dest: "/etc/containers/systemd/users/{{ podman_uid }}/"
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   notify:
+#     - Reload podman systemd
+#     - Restart podman transmission

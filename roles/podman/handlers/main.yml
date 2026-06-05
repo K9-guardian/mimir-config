@@ -5,12 +5,29 @@
     daemon_reload: true
     scope: user
 
-- name: Restart podman quadlets
+- name: Restart podman jellyfin
   become: true
   become_user: podman
   ansible.builtin.systemd:
-    name: "{{ item }}"
+    name: "jellyfin"
     state: restarted
     enabled: true
     scope: user
-  loop: "{{ podman_quadlets }}"
+
+- name: Restart podman slskd
+  become: true
+  become_user: podman
+  ansible.builtin.systemd:
+    name: "slskd-vpn-pod"
+    state: restarted
+    enabled: true
+    scope: user
+
+- name: Restart podman transmission
+  become: true
+  become_user: podman
+  ansible.builtin.systemd:
+    name: "slskd-vpn-pod"
+    state: restarted
+    enabled: true
+    scope: user

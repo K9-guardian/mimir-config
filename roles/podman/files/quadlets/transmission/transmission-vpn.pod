@@ -1,0 +1,6 @@
+[Pod]
+PodName=slskd-vpn
+PublishPort=9091:9091/tcp
+
+[Install]
+WantedBy=default.target
