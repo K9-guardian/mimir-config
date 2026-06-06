@@ -10,6 +10,6 @@ EnvironmentFile=slskd-vpn-slskd.env
 GroupAdd=keep-groups
 Image=docker.io/slskd/slskd:latest
 Pod=slskd-vpn.pod
-Volume=slskd_app:/app:z
+Volume=slskd_app:/app:Z
 Volume=/mnt/nas/share:/share:ro
 Volume=/mnt/scratch/slskd:/files
