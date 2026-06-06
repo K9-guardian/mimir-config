@@ -11,15 +11,21 @@ Easiest to hardcode the disk UUIDs for this.
 Containers:
 - Separate wireguard VPN for port forwarding for transmission
   - I've moved transmission over, but haven't setup port forwarding from gluetun yet.
+- Add auth for transmission (container supports a USER and PASSWORD field)
 - tinymediamanager and syncthing should get moved to an entirely separate repo
   - I don't think there's any significant code duplication here, so probably
     don't need a shared task
 
 Nicotine:
 I might want to migrate this to nicotine.
-https://github.com/fletchto99/nicotine-plus-docker - this looks promising.
-To get port forwarding to work, I think I'll have to use NICOTINE_CLI and pass
-in the port.
+https://hub.docker.com/r/sirjmann92/nicotineplus-proper
+- This image just updated with experimental clipboard support with
+  sirjmann92/nicotineplus-proper:test, which seems to be working reasonably
+  well.
+I think it's worth it to switch to this, or most likely run this in parallel
+with slskd (m2m2r?). Port forwarding will still be a bit tricky - looks like
+the container has curl thankfully, so I can query the gluetun control server
+and maybe set an environment variable.
 
 Tailscale:
 Tailscale grants are currently being used to control who has access to what on
