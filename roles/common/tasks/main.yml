@@ -46,5 +46,7 @@
     group: nasusers
     mode: '2770'
   loop:
-    - { path: "/mnt/scratch/slskd",        owner: "podman" }
-    - { path: "/mnt/scratch/transmission", owner: "podman" }
+    - { path: "/mnt/scratch/slskd",                  owner: "podman" }
+    - { path: "/mnt/scratch/transmission",           owner: "podman" }
+    - { path: "/mnt/scratch/transmission/downloads", owner: "podman" }
+    - { path: "/mnt/scratch/transmission/watch",     owner: "podman" }
