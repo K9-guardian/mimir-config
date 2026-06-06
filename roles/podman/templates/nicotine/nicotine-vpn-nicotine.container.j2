@@ -1,0 +1,16 @@
+[Container]
+AutoUpdate=registry
+ContainerName=nicotine-vpn-nicotine
+Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} UMASK=006 TZ=America/Los_Angeles
+; Environment=SLSKD_VPN=true SLSKD_VPN_PORT_FORWARDING=true SLSKD_VPN_GLUETUN_URL=http://localhost:8000 SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r SLSKD_UMASK=006 SLSKD_SHARED_DIR=/share SLSKD_REMOTE_CONFIGURATION=true SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete
+; EnvironmentFile=slskd-vpn-slskd.env
+GroupAdd=keep-groups
+Image=docker.io/sirjmann92/nicotineplus-proper:test
+; Pod=slskd-vpn.pod
+PublishPort=6565:6565/tcp
+UIDMap=+{{ podman_uid }}:0
+GIDMap=+{{ nasusers_gid }}:0
+Volume=nicotine_config:/config:Z
+Volume=nicotine_data:/data:Z
+; Volume=/mnt/nas/share:/share:ro
+; Volume=/mnt/scratch/slskd:/files

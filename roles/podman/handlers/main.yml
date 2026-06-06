@@ -14,18 +14,18 @@
     enabled: true
     scope: user
 
-- name: Configure SELinux context for slskd gluetun config
+- name: Configure SELinux context for gluetun config
   become: true
   community.general.sefcontext:
     setype: container_file_t
-    path: "/etc/containers/systemd/users/{{ podman_uid }}/slskd-vpn-gluetun-config.toml"
+    path: "/etc/containers/systemd/users/{{ podman_uid }}/gluetun-config.toml"
     state: present
   register: fcontext_changes
 
-- name: Restore SELinux context for slskd gluetun config
+- name: Restore SELinux context for gluetun config
   become: true
   ansible.builtin.command:
-    cmd: "restorecon -rF /etc/containers/systemd/users/{{ podman_uid }}/slskd-vpn-gluetun-config.toml"
+    cmd: "restorecon -rF /etc/containers/systemd/users/{{ podman_uid }}/gluetun-config.toml"
   when: fcontext_changes.changed
   changed_when: true
 
@@ -34,6 +34,15 @@
   become_user: podman
   ansible.builtin.systemd:
     name: "slskd-vpn-pod"
+    state: restarted
+    enabled: true
+    scope: user
+
+- name: Restart podman nicotine
+  become: true
+  become_user: podman
+  ansible.builtin.systemd:
+    name: "nicotine-vpn-nicotine" # TODO: Add gluetun to this
     state: restarted
     enabled: true
     scope: user
