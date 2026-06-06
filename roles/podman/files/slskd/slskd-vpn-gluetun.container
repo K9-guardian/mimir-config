@@ -7,4 +7,4 @@ EnvironmentFile=slskd-vpn-gluetun.env
 GroupAdd=keep-groups
 Image=docker.io/qmcgaw/gluetun:latest
 Pod=slskd-vpn.pod
-Volume=./slskd-vpn-gluetun-config.toml:/gluetun/auth/config.toml:ro
+Volume=./gluetun-config.toml:/gluetun/auth/config.toml:ro
