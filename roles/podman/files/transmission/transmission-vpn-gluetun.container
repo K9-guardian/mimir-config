@@ -7,6 +7,8 @@ EnvironmentFile=transmission-vpn-gluetun.env
 GroupAdd=keep-groups
 Image=docker.io/qmcgaw/gluetun:latest
 PublishPort=9091:9091/tcp
+PublishPort=8000:8000/tcp
+Volume=./gluetun-config.toml:/gluetun/auth/config.toml:ro
 
 [Install]
 WantedBy=default.target
