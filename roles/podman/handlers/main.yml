@@ -42,7 +42,7 @@
   become: true
   become_user: podman
   ansible.builtin.systemd:
-    name: "slskd-vpn-pod"
+    name: "transmission-vpn-gluetun"
     state: restarted
     enabled: true
     scope: user

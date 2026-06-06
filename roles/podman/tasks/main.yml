@@ -1,3 +1,12 @@
+- name: Retrieve GID of nasusers group
+  ansible.builtin.getent:
+    database: group
+    key: nasusers
+
+- name: Set fact for nasusers GID
+  ansible.builtin.set_fact:
+    nasusers_gid: "{{ ansible_facts.getent_group.nasusers.1 }}"
+
 - name: Enable linger for podman
   ansible.builtin.command:
     cmd: loginctl enable-linger podman
@@ -11,16 +20,16 @@
     state: directory
     owner: root
     group: root
-    mode: '0755'
+    mode: '755'
 
 - name: Copy jellyfin quadlets
   become: true
   ansible.builtin.copy:
-    src: "files/quadlets/jellyfin/"
-    dest: "/etc/containers/systemd/users/{{ podman_uid }}/"
+    src: "files/jellyfin/"
+    dest: "/etc/containers/systemd/users/{{ podman_uid }}"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   notify:
     - Reload podman systemd
     - Restart podman jellyfin
@@ -28,25 +37,36 @@
 - name: Copy slskd quadlets
   become: true
   ansible.builtin.copy:
-    src: "files/quadlets/slskd/"
-    dest: "/etc/containers/systemd/users/{{ podman_uid }}/"
+    src: "files/slskd/"
+    dest: "/etc/containers/systemd/users/{{ podman_uid }}"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   notify:
     - Configure SELinux context for slskd gluetun config
     - Restore SELinux context for slskd gluetun config
     - Reload podman systemd
     - Restart podman slskd
 
-# - name: Copy transmission quadlets
-#   become: true
-#   ansible.builtin.copy:
-#     src: "files/quadlets/transmission/"
-#     dest: "/etc/containers/systemd/users/{{ podman_uid }}/"
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   notify:
-#     - Reload podman systemd
-#     - Restart podman transmission
+- name: Copy transmission quadlets
+  become: true
+  notify:
+    - Reload podman systemd
+    - Restart podman transmission
+  block:
+    - name: Copy transmission files
+      ansible.builtin.copy:
+        src: "files/transmission/"
+        dest: "/etc/containers/systemd/users/{{ podman_uid }}"
+        owner: root
+        group: root
+        mode: '644'
+
+    - name: Deploy transmission files
+      ansible.builtin.template:
+        src: "transmission/transmission-vpn-transmission.container.j2"
+        dest: "/etc/containers/systemd/users/{{ podman_uid }}/transmission-vpn-transmission.container"
+        owner: root
+        group: root
+        mode: '644'
+
