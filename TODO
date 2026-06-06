@@ -10,7 +10,7 @@ Easiest to hardcode the disk UUIDs for this.
 
 Containers:
 - Separate wireguard VPN for port forwarding for transmission
-- Probably need kube yaml for transmission/slskd to spin up gluetun for them
+  - I've moved transmission over, but haven't setup port forwarding from gluetun yet.
 - tinymediamanager and syncthing should get moved to an entirely separate repo
   - I don't think there's any significant code duplication here, so probably
     don't need a shared task
