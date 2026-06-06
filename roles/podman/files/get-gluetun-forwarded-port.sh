@@ -9,8 +9,8 @@ PORT=$(curl -s "http://localhost:${GLUETUN_PORT}/v1/portforward" | jq '.port')
 
 if [ "$PORT" -gt 0 ]; then
   echo "${ENV_KEY}=${PORT}" > "${TARGET_DIR}/${OUTPUT_FILE}"
-  echo "Successfully wrote ${ENV_KEY}=${PORT} to ${TARGET_DIR}/${OUTPUT_FILE}"
+  echo "Received port $PORT"
 else
-  echo "Gluetun on port ${GLUETUN_PORT} hasn't assigned a valid port yet (Got: $PORT)" >&2
+  echo "Port $PORT is invalid" >&2
   exit 1
 fi
