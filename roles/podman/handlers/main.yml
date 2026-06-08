@@ -33,7 +33,7 @@
   become: true
   become_user: podman
   ansible.builtin.systemd:
-    name: "slskd-vpn-pod"
+    name: "slskd-vpn-gluetun"
     state: restarted
     enabled: true
     scope: user
@@ -42,7 +42,7 @@
   become: true
   become_user: podman
   ansible.builtin.systemd:
-    name: "nicotine-vpn-nicotine" # TODO: Add gluetun to this
+    name: "nicotine-vpn-gluetun"
     state: restarted
     enabled: true
     scope: user
