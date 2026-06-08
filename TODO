@@ -3,8 +3,6 @@ Just want a simple role to create the LVM cache and scratch drives in /mnt/nas a
 Easiest to hardcode the disk UUIDs for this.
 
 Containers:
-- Add auth for transmission (container supports a USER and PASSWORD field)
-- Add auth for nicotine (container supports a WEB_UI_USER and WEB_UI_PASSWORD field)
 - tinymediamanager and syncthing should get moved to an entirely separate repo
   - I don't think there's any significant code duplication here, so probably
     don't need a shared task
