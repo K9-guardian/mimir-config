@@ -1,16 +1,27 @@
+[Unit]
+After=nicotine-vpn-gluetun.service
+PartOf=nicotine-vpn-gluetun.service
+
+[Service]
+ExecStartPre=/usr/local/bin/get-gluetun-forwarded-port.sh 8001 FORWARD_PORT /run/user/{{ podman_uid }}/nicotine-vpn-gluetun-forwarded-port.env
+Restart=on-failure
+RestartSec=5
+
 [Container]
 AutoUpdate=registry
 ContainerName=nicotine-vpn-nicotine
-Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} UMASK=006 TZ=America/Los_Angeles
-; Environment=SLSKD_VPN=true SLSKD_VPN_PORT_FORWARDING=true SLSKD_VPN_GLUETUN_URL=http://localhost:8000 SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r SLSKD_UMASK=006 SLSKD_SHARED_DIR=/share SLSKD_REMOTE_CONFIGURATION=true SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete
-; EnvironmentFile=slskd-vpn-slskd.env
-GroupAdd=keep-groups
+Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} LOGIN=m2m2r UMASK=006 TZ=America/Los_Angeles
+EnvironmentFile=nicotine-vpn-nicotine.env
+EnvironmentFile=%t/nicotine-vpn-gluetun-forwarded-port.env
 Image=docker.io/sirjmann92/nicotineplus-proper:test
-; Pod=slskd-vpn.pod
-PublishPort=6565:6565/tcp
-UIDMap=+{{ podman_uid }}:0
-GIDMap=+{{ nasusers_gid }}:0
+Network=container:nicotine-vpn-gluetun
+User=root
+UserNS=keep-id
+GroupAdd=keep-groups
 Volume=nicotine_config:/config:Z
 Volume=nicotine_data:/data:Z
-; Volume=/mnt/nas/share:/share:ro
-; Volume=/mnt/scratch/slskd:/files
+Volume=/mnt/nas/share:/share:ro
+Volume=/mnt/scratch/nicotine:/downloads
+
+[Install]
+WantedBy=default.target
