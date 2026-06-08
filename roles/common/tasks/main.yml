@@ -33,7 +33,7 @@
     state: directory
     owner: "{{ item.owner }}"
     group: nasusers
-    mode: '770'
+    mode: '775'
   loop:
     - { path: "/mnt/nas/share", owner: "root" }
 
@@ -47,6 +47,7 @@
     mode: '2770'
   loop:
     - { path: "/mnt/scratch/slskd",                  owner: "podman" }
+    - { path: "/mnt/scratch/nicotine",               owner: "podman" }
     - { path: "/mnt/scratch/transmission",           owner: "podman" }
     - { path: "/mnt/scratch/transmission/downloads", owner: "podman" }
     - { path: "/mnt/scratch/transmission/watch",     owner: "podman" }
