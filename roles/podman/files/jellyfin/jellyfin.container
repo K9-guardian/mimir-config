@@ -2,10 +2,11 @@
 AddDevice=nvidia.com/gpu=0
 AutoUpdate=registry
 ContainerName=jellyfin
-GroupAdd=keep-groups
 Image=docker.io/jellyfin/jellyfin:latest
 PublishPort=8096:8096/tcp
 PublishPort=7359:7359/udp
+UserNS=keep-id
+GroupAdd=keep-groups
 Volume=jellyfin_config:/config:Z
 Volume=jellyfin_cache:/cache:Z
 Volume=/mnt/nas/share:/media:ro
