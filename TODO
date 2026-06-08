@@ -1,31 +1,13 @@
-SLSKD:
-I think it's probably safe to have gluetun mount a read only script to more
-robustly modify slskd's config. Still don't really want to mess with the
-gluetun control server, seems like that's difficult (and a potential security
-vuln).
-
 LVM:
 Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
 Easiest to hardcode the disk UUIDs for this.
 
 Containers:
-- Separate wireguard VPN for port forwarding for transmission
-  - I've moved transmission over, but haven't setup port forwarding from gluetun yet.
 - Add auth for transmission (container supports a USER and PASSWORD field)
+- Add auth for nicotine (container supports a WEB_UI_USER and WEB_UI_PASSWORD field)
 - tinymediamanager and syncthing should get moved to an entirely separate repo
   - I don't think there's any significant code duplication here, so probably
     don't need a shared task
-
-Nicotine:
-I might want to migrate this to nicotine.
-https://hub.docker.com/r/sirjmann92/nicotineplus-proper
-- This image just updated with experimental clipboard support with
-  sirjmann92/nicotineplus-proper:test, which seems to be working reasonably
-  well.
-I think it's worth it to switch to this, or most likely run this in parallel
-with slskd (m2m2r?). Port forwarding will still be a bit tricky - looks like
-the container has curl thankfully, so I can query the gluetun control server
-and maybe set an environment variable.
 
 Tailscale:
 Tailscale grants are currently being used to control who has access to what on
