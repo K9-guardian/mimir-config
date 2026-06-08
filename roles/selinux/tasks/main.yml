@@ -4,6 +4,7 @@
     directories:
       - "/mnt/nas/share"
       - "/mnt/scratch/slskd"
+      - "/mnt/scratch/nicotine"
       - "/mnt/scratch/transmission"
   block:
     - name: Configure SELinux context
