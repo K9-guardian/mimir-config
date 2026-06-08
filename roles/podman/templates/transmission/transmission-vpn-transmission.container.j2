@@ -3,7 +3,7 @@ After=transmission-vpn-gluetun.service
 PartOf=transmission-vpn-gluetun.service
 
 [Service]
-ExecStartPre=/usr/local/bin/get-gluetun-forwarded-port.sh 8000 PEERPORT transmission-vpn-gluetun-forwarded-port.env
+ExecStartPre=/usr/local/bin/get-gluetun-forwarded-port.sh 8000 PEERPORT /run/user/{{ podman_uid }}/transmission-vpn-gluetun-forwarded-port.env
 Restart=on-failure
 RestartSec=5
 
@@ -12,11 +12,10 @@ AutoUpdate=registry
 ContainerName=transmission-vpn-transmission
 Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} UMASK=006 TZ=America/Los_Angeles
 EnvironmentFile=%t/transmission-vpn-gluetun-forwarded-port.env
-GroupAdd=keep-groups
 Image=lscr.io/linuxserver/transmission:latest
 Network=container:transmission-vpn-gluetun
-UIDMap=+{{ podman_uid }}:0
-GIDMap=+{{ nasusers_gid }}:0
+UserNS=keep-id
+GroupAdd=keep-groups
 Volume=transmission_config:/config:Z
 Volume=/mnt/scratch/transmission/downloads:/downloads
 Volume=/mnt/scratch/transmission/watch:/watch

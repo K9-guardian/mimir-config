@@ -2,9 +2,8 @@
 AddCapability=NET_ADMIN NET_RAW
 AddDevice=/dev/net/tun:/dev/net/tun
 ContainerName=transmission-vpn-gluetun
-Environment=VPN_SERVICE_PROVIDER=protonvpn VPN_TYPE=wireguard VPN_PORT_FORWARDING=on "SERVER_COUNTRIES=United States"
+Environment=HTTP_CONTROL_SERVER_ADDRESS=:8000 VPN_SERVICE_PROVIDER=protonvpn VPN_TYPE=wireguard VPN_PORT_FORWARDING=on "SERVER_COUNTRIES=United States"
 EnvironmentFile=transmission-vpn-gluetun.env
-GroupAdd=keep-groups
 Image=docker.io/qmcgaw/gluetun:latest
 PublishPort=9091:9091/tcp
 PublishPort=8000:8000/tcp
