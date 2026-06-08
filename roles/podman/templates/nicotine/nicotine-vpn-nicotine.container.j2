@@ -10,7 +10,9 @@ RestartSec=5
 [Container]
 AutoUpdate=registry
 ContainerName=nicotine-vpn-nicotine
-Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} LOGIN=m2m2r UMASK=006 TZ=America/Los_Angeles
+Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} UMASK=006
+Environment=LOGIN=m2m2r WEB_UI_USER=mimir
+Environment=TZ=America/Los_Angeles
 EnvironmentFile=nicotine-vpn-nicotine.env
 EnvironmentFile=%t/nicotine-vpn-gluetun-forwarded-port.env
 Image=docker.io/sirjmann92/nicotineplus-proper:test

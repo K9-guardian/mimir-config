@@ -10,7 +10,10 @@ RestartSec=5
 [Container]
 AutoUpdate=registry
 ContainerName=transmission-vpn-transmission
-Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} UMASK=006 TZ=America/Los_Angeles
+Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} UMASK=006
+Environment=USER=mimir
+Environment=TZ=America/Los_Angeles
+EnvironmentFile=transmission-vpn-transmission.env
 EnvironmentFile=%t/transmission-vpn-gluetun-forwarded-port.env
 Image=lscr.io/linuxserver/transmission:latest
 Network=container:transmission-vpn-gluetun
