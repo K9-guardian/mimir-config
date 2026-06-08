@@ -5,11 +5,19 @@ After=slskd-vpn-gluetun.service
 [Container]
 AutoUpdate=registry
 ContainerName=slskd-vpn-slskd
-Environment=SLSKD_VPN=true SLSKD_VPN_PORT_FORWARDING=true SLSKD_VPN_GLUETUN_URL=http://localhost:8000 SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r SLSKD_UMASK=006 SLSKD_SHARED_DIR=/share SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete
+Environment=SLSKD_VPN=true SLSKD_VPN_PORT_FORWARDING=true SLSKD_VPN_GLUETUN_URL=http://localhost:8002
+Environment=SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r
+Environment=SLSKD_SHARED_DIR=/share SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete 
+Environment=SLSKD_UMASK=006 SLSKD_SHARE_CACHE_RETENTION=1440
 EnvironmentFile=slskd-vpn-slskd.env
+EnvironmentFile=%t/slskd-vpn-gluetun-forwarded-port.env
+Network=container:slskd-vpn-gluetun
+UserNS=keep-id
 GroupAdd=keep-groups
 Image=docker.io/slskd/slskd:latest
-Pod=slskd-vpn.pod
 Volume=slskd_app:/app:Z
 Volume=/mnt/nas/share:/share:ro
 Volume=/mnt/scratch/slskd:/files
+
+[Install]
+WantedBy=default.target

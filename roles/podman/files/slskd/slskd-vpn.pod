@@ -1,6 +1,0 @@
-[Pod]
-PodName=slskd-vpn
-PublishPort=5030:5030/tcp
-
-[Install]
-WantedBy=default.target
