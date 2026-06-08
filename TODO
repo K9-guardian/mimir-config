@@ -4,7 +4,7 @@ Easiest to hardcode the disk UUIDs for this.
 
 # Containers
 - tinymediamanager and syncthing should get moved to an entirely separate repo
-  - I don't think there's any significant code duplication here, so probably
+  - I don't think there is any significant code duplication here, so probably
     don't need a shared task
 
 # Tailscale
