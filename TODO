@@ -6,11 +6,3 @@ Easiest to hardcode the disk UUIDs for this.
 - tinymediamanager and syncthing should get moved to an entirely separate repo
   - I don't think there is any significant code duplication here, so probably
     don't need a shared task
-
-# Tailscale
-Tailscale grants are currently being used to control who has access to what on
-the tailnet. I like this system - it's good enough that we can skip using
-firewalld for the most part and just trust tailscale.
-
-Tailscale grants are setup as json. I want a system where each system on the
-tailnet specifies its own json for who can access it.
