@@ -1,0 +1,11 @@
+- name: Restart firewalld
+  become: true
+  systemd:
+    name: firewalld
+    state: restarted
+
+- name: Restart tailscaled
+  become: true
+  systemd:
+    name: tailscaled
+    state: restarted

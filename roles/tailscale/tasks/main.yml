@@ -1,0 +1,10 @@
+- name: Add tailscale0 interface to trusted zone
+  become: true
+  firewalld:
+    zone: trusted
+    interface: tailscale0
+    permanent: true
+    state: enabled
+  notify:
+    - Restart firewalld
+    - Restart tailscaled
