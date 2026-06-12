@@ -13,13 +13,6 @@
     creates: "/var/lib/systemd/linger/podman"
   become: true
 
-- name: Install jq
-  become: true
-  ansible.builtin.dnf:
-    name:
-      - jq
-    state: present
-
 - name: Copy get-gluetun-forwarded-port.sh
   become: true
   ansible.builtin.copy:

@@ -51,3 +51,11 @@
     - { path: "/mnt/scratch/transmission",           owner: "podman" }
     - { path: "/mnt/scratch/transmission/downloads", owner: "podman" }
     - { path: "/mnt/scratch/transmission/watch",     owner: "podman" }
+
+- name: Install software
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - samba
+      - jq
+    state: present
