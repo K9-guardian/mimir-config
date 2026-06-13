@@ -68,9 +68,6 @@
 
 - name: Copy nicotine quadlets
   become: true
-  notify:
-    - Reload podman systemd
-    - Restart podman nicotine
   block:
     - name: Copy nicotine files
       ansible.builtin.copy:
@@ -87,12 +84,14 @@
         owner: root
         group: root
         mode: '644'
+  notify:
+    - Configure SELinux context for gluetun config
+    - Restore SELinux context for gluetun config
+    - Reload podman systemd
+    - Restart podman nicotine
 
 - name: Copy transmission quadlets
   become: true
-  notify:
-    - Reload podman systemd
-    - Restart podman transmission
   block:
     - name: Copy transmission files
       ansible.builtin.copy:
@@ -109,3 +108,8 @@
         owner: root
         group: root
         mode: '644'
+  notify:
+    - Configure SELinux context for gluetun config
+    - Restore SELinux context for gluetun config
+    - Reload podman systemd
+    - Restart podman transmission
