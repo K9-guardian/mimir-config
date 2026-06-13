@@ -2,11 +2,6 @@
 Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
 Easiest to hardcode the disk UUIDs for this.
 
-# Containers
-- tinymediamanager and syncthing should get moved to an entirely separate repo
-  - I don't think there is any significant code duplication here, so probably
-    don't need a shared task
-
 # Tailscale
 I setup a basic role to add tailscale0 to the trusted zone. We can actually
 relatively easily setup automatic install/bringup of tailscale with an oauth
