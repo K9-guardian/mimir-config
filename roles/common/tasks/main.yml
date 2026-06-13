@@ -3,6 +3,12 @@
     name: nasusers
     state: present
 
+- name: Create podman group
+  ansible.builtin.group:
+    name: podman
+    state: present
+    gid: "{{ podman_gid }}"
+
 - name: Create podman user
   become: true
   ansible.builtin.user:
@@ -44,7 +50,7 @@
     state: directory
     owner: "{{ item.owner }}"
     group: nasusers
-    mode: '2770'
+    mode: '2775'
   loop:
     - { path: "/mnt/scratch/slskd",                  owner: "podman" }
     - { path: "/mnt/scratch/nicotine",               owner: "podman" }

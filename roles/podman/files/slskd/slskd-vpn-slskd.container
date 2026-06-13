@@ -8,7 +8,7 @@ ContainerName=slskd-vpn-slskd
 Environment=SLSKD_VPN=true SLSKD_VPN_PORT_FORWARDING=true SLSKD_VPN_GLUETUN_URL=http://localhost:8002
 Environment=SLSKD_USERNAME=mimir SLSKD_SLSK_USERNAME=m1m1r
 Environment=SLSKD_SHARED_DIR=/share SLSKD_DOWNLOADS_DIR=/files/downloads SLSKD_INCOMPLETE_DIR=/files/incomplete 
-Environment=SLSKD_UMASK=006 SLSKD_SHARE_CACHE_RETENTION=1440
+Environment=SLSKD_UMASK=002 SLSKD_SHARE_CACHE_RETENTION=1440
 EnvironmentFile=slskd-vpn-slskd.env
 EnvironmentFile=%t/slskd-vpn-gluetun-forwarded-port.env
 Network=container:slskd-vpn-gluetun

@@ -10,7 +10,7 @@ RestartSec=5
 [Container]
 AutoUpdate=registry
 ContainerName=transmission-vpn-transmission
-Environment=PUID={{ podman_uid }} PGID={{ nasusers_gid }} UMASK=006
+Environment=PUID={{ podman_uid }} PGID={{ podman_gid }} UMASK=002
 Environment=USER=mimir
 Environment=TZ=America/Los_Angeles
 EnvironmentFile=transmission-vpn-transmission.env
