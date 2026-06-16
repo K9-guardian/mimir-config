@@ -1,3 +1,27 @@
+- name: Ensure /etc/tailscale exists
+  become: true
+  ansible.builtin.file:
+    path: "/etc/tailscale"
+    state: directory
+    mode: 755
+
+- name: Copy OAuth secret to authkey file
+  become: true
+  ansible.builtin.copy:
+    src: "files/authkey"
+    dest: "/etc/tailscale/authkey"
+    mode: 600
+    owner: root
+    group: root
+
+- name: Setup tailscale
+  ansible.builtin.include_role:
+    name: artis3n.tailscale.machine
+  vars:
+    tailscale_authkey: "file:/etc/tailscale/authkey"
+    tailscale_tags: "{{ mimir_tailscale_tags }}"
+    tailscale_args: "--reset --force-reauth"
+
 - name: Add tailscale0 interface to trusted zone
   become: true
   firewalld:
