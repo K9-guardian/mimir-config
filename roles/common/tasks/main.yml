@@ -62,6 +62,7 @@
   become: true
   ansible.builtin.dnf:
     name:
+      - borgbackup
       - ffmpeg
       - jq
       - samba
