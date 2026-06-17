@@ -1,7 +1,17 @@
 # Backups
-Primarily want a shared jellyfin backup.
-Slskd is pretty much all managed by env variables which is nice.
-Nicotine is probably worth it to backup as well.
+Spent a little bit more time looking into this.
+The general strategy is
+- Pause all containers
+- Create an LVM snapshot
+- Resume all containers
+- Borg backup the snapshot locally (most likely in /home/podman/.borg_cloud)
+- Rclone the local borg archive
+
+This will all be run as the podman user, as podman is the runner for the containers.
+Will probably have this set as an hourly crontab
+I'll probably use borgmatic to handle this.
+I'll have both podman and k9 backups use the same drive account
+- Backup scripts will run separately under podman and k9 user accounts though for simplicity.
 
 # LVM
 Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
