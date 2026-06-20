@@ -1,11 +1,3 @@
-# Backups
-I've finished writing the script for this, now just want to setup ansible for this.
-
-- Copy borg passfile to /etc/borg/passfile
-- Copy backup_containers.sh script to /usr/local/bin/backup_containers.sh
-- Initialize borg repo
-- Add backup_containers.sh to sudo crontab at 3:30AM
-
 # LVM
 Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
 Easiest to hardcode the disk UUIDs for this.
