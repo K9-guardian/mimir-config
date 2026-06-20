@@ -1,2 +1,3 @@
 tailscale_dir: "/etc/tailscale"
+
 mimir_tailscale_tags: ["mimir"]
