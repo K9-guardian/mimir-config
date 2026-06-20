@@ -1,13 +1,10 @@
 # Backups
-Spent a little bit more time looking into this.
-The general strategy is
-- Pause all containers
-- Borg backup the volumes (most likely to /var/local/mimir_borg)
-- Resume all containers
-- Rclone the local borg archive
+I've finished writing the script for this, now just want to setup ansible for this.
 
-This will probably be run as root to be able to access all user containers.
-I'll run it daily at 3AM to disturb as few people as possible.
+- Copy borg passfile to /etc/borg/passfile
+- Copy backup_containers.sh script to /usr/local/bin/backup_containers.sh
+- Initialize borg repo
+- Add backup_containers.sh to sudo crontab at 3:30AM
 
 # LVM
 Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
