@@ -1,0 +1,35 @@
+#!/bin/bash
+REPO_NAME="{{ repo_name }}"
+export BORG_REPO="{{ repo_dir }}"
+export BORG_PASSCOMMAND="cat {{ borg_dir }}/passfile"
+
+borg prune --stats --keep-daily=7 --keep-weekly=4 --keep-monthly=-1
+borg compact
+
+users=("k9" "podman")
+
+backup_paths=()
+for user in "${users[@]}"; do
+  backup_paths+=("/home/$user/.local/share/containers/storage/volumes")
+done
+backup_paths+=(
+"/mnt/nas/share/k9/Music/musiclist.csv"
+"/mnt/nas/share/k9/Videos/Movies/movielist.csv"
+"/mnt/nas/share/k9/Videos/TV/tvshows.csv"
+)
+
+echo "Pausing containers..."
+for user in "${users[@]}"; do
+  sudo -u "$user" podman pause --all
+done
+
+echo "Backing up volumes..."
+borg create --stats ::{now} "${backup_paths[@]}"
+
+echo "Resuming containers..."
+for user in "${users[@]}"; do
+  sudo -u "$user" podman unpause --all
+done
+
+echo "Syncing backup to cloud..."
+rclone -v sync "$BORG_REPO" "Drive:$REPO_NAME"

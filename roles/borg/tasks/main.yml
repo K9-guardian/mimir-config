@@ -1,0 +1,42 @@
+- name: Ensure {{ borg_dir }} exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ borg_dir }}"
+    state: directory
+    mode: 700
+
+- name: Copy passfile to {{ borg_dir }}
+  become: true
+  ansible.builtin.copy:
+    src: "files/passfile"
+    dest: "{{ borg_dir }}/passfile"
+    mode: 600
+    owner: root
+    group: root
+
+- name: Initialize borg repo
+  become: true
+  ansible.builtin.command:
+    cmd: >
+      export BORG_REPO="{{ repo_dir }}"
+      export BORG_PASSCOMMAND="cat {{ borg_dir }}/passfile"
+      borg init -e repokey
+  args:
+    creates: "{{ repo_dir }}"
+
+- name: Copy backup_containers.bash
+  become: true
+  ansible.builtin.template:
+    src: "backup_containers.bash.j2"
+    dest: "/usr/local/bin/backup_containers.bash"
+    owner: root
+    group: root
+    mode: '755'
+
+- name: Add backup_containers.bash to crontab
+  become: true
+  ansible.builtin.cron:
+    name: "backup containers"
+    minute: 30
+    hour: 3
+    job: "/usr/local/bin/backup_containers.bash"

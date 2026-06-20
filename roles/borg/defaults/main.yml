@@ -1,0 +1,4 @@
+borg_dir: "/etc/borg"
+
+repo_name: "mimir_borg"
+repo_dir: "/var/local/{{ repo_name }}"
