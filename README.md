@@ -7,6 +7,10 @@ Usage:
 - Create `~/.passfiles/ansible_mimir` with ansible vault password.
 - Run `make`.
 
+# Development Overview
+
+TODO: Have to think about this tbh. Some vulns I didn't think about.
+
 # Configuration Overview
 
 The configuration has 3 main parts - setup, services, and backups. Each role in
