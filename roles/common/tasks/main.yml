@@ -41,7 +41,8 @@
     group: nasusers
     mode: '775'
   loop:
-    - { path: "/mnt/nas/share", owner: "root" }
+    - { path: "/mnt/nas/share",   owner: "root" }
+    - { path: "/mnt/nas/private", owner: "root" }
 
 - name: Create scratch directories
   become: true

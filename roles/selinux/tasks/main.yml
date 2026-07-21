@@ -3,6 +3,7 @@
   vars:
     directories:
       - "/mnt/nas/share"
+      - "/mnt/nas/private"
       - "/mnt/scratch/slskd"
       - "/mnt/scratch/nicotine"
       - "/mnt/scratch/transmission"
