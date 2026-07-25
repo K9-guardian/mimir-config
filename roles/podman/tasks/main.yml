@@ -2,10 +2,8 @@
   ansible.builtin.command:
     cmd: loginctl enable-linger podman
     creates: "/var/lib/systemd/linger/podman"
-  become: true
 
 - name: Copy get-gluetun-forwarded-port.sh
-  become: true
   ansible.builtin.copy:
     src: "files/get-gluetun-forwarded-port.sh"
     dest: "/usr/local/bin"
@@ -14,7 +12,6 @@
     mode: '755'
 
 - name: Copy gluetun default config
-  become: true
   ansible.builtin.copy:
     src: "files/gluetun-config.toml"
     dest: "/etc/containers/systemd/users/{{ podman_uid }}"
@@ -23,7 +20,6 @@
     mode: '644'
 
 - name: Create quadlets folder for podman containers
-  become: true
   ansible.builtin.file:
     path: "/etc/containers/systemd/users/{{ podman_uid }}"
     state: directory
@@ -32,7 +28,6 @@
     mode: '755'
 
 - name: Copy jellyfin quadlets
-  become: true
   ansible.builtin.copy:
     src: "files/jellyfin/"
     dest: "/etc/containers/systemd/users/{{ podman_uid }}"
@@ -44,7 +39,6 @@
     - Restart podman jellyfin
 
 - name: Copy slskd quadlets
-  become: true
   ansible.builtin.copy:
     src: "files/slskd/"
     dest: "/etc/containers/systemd/users/{{ podman_uid }}"
@@ -58,7 +52,6 @@
     - Restart podman slskd
 
 - name: Copy nicotine quadlets
-  become: true
   block:
     - name: Copy nicotine files
       ansible.builtin.copy:
@@ -82,7 +75,6 @@
     - Restart podman nicotine
 
 - name: Copy transmission quadlets
-  become: true
   block:
     - name: Copy transmission files
       ansible.builtin.copy:

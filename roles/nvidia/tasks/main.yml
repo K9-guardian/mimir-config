@@ -1,5 +1,4 @@
 - name: Enable AlmaLinux NVIDIA driver repository
-  become: true
   ansible.builtin.dnf:
     name:
       - almalinux-release-nvidia-driver
@@ -7,7 +6,6 @@
     state: present
 
 - name: Install NVIDIA drivers
-  become: true
   ansible.builtin.dnf:
     name:
       - nvidia-open
@@ -21,7 +19,6 @@
     state: present
 
 - name: Add NVIDIA Container Toolkit repository
-  become: true
   ansible.builtin.yum_repository:
     name: nvidia-container-toolkit
     description: NVIDIA Container Toolkit
@@ -33,7 +30,6 @@
     priority: 30
 
 - name: Install NVIDIA Container Toolkit
-  become: true
   ansible.builtin.dnf:
     name:
       - nvidia-container-toolkit
@@ -42,7 +38,6 @@
   notify: Restart nvidia-cdi-refresh
 
 - name: Enable nvidia-cdi-refresh service
-  become: true
   ansible.builtin.systemd:
     name: "{{ item }}"
     state: started

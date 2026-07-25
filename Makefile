@@ -5,10 +5,10 @@ _TAGS := $(if $(TAGS),--tags $(TAGS))
 .PHONY: install check lint
 
 install:
-	$(ANSIBLE_PLAYBOOK) -i $(INVENTORY) mimir.yml $(_TAGS)
+	sudo $(ANSIBLE_PLAYBOOK) -i $(INVENTORY) mimir.yml $(_TAGS)
 
 check:
-	$(ANSIBLE_PLAYBOOK) -i $(INVENTORY) mimir.yml --check --diff $(_TAGS)
+	sudo $(ANSIBLE_PLAYBOOK) -i $(INVENTORY) mimir.yml --check --diff $(_TAGS)
 
 lint:
-	$(ANSIBLE_PLAYBOOK) -i $(INVENTORY) mimir.yml --syntax-check $(_TAGS)
+	sudo $(ANSIBLE_PLAYBOOK) -i $(INVENTORY) mimir.yml --syntax-check $(_TAGS)

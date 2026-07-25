@@ -2,8 +2,6 @@
   connection: local
   vars:
     ansible_python_interpreter: "{{ ansible_playbook_python }}"
-  vars_files:
-    - "vars/user_vaults/vault_{{ lookup('env', 'USER') }}.yml"
   roles:
     - { role: devsec.hardening.ssh_hardening, tags: ssh }
     - { role: common,    tags: common }
