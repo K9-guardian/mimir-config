@@ -1,0 +1,37 @@
+- name: Ensure Drive exists in rclone config
+  community.general.ini_file:
+    path: "~/.config/rclone/rclone.conf"
+    section: "Drive"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  loop:
+    - { option: "type",          value: "drive" }
+    - { option: "client_id",     value: "{{ rclone_client_id }}" }
+    - { option: "client_secret", value: "{{ rclone_client_secret }}" }
+    - { option: "scope",         value: "drive" }
+    - { option: "team_drive",    value: "" }
+
+- name: Ensure MimirArchive exists in rclone config
+  community.general.ini_file:
+    path: "~/.config/rclone/rclone.conf"
+    section: "MimirArchive"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  loop:
+    - { option: "type",               value: "google cloud storage" }
+    - { option: "location",           value: "us-west1" }
+    - { option: "storage_class",      value: "ARCHIVE" }
+    - { option: "project_number",     value: "mimir-archive-storage" }
+    - { option: "bucket_policy_only", value: "true" }
+
+- name: Ensure MimirArchiveCrypt exists in rclone config
+  community.general.ini_file:
+    path: "~/.config/rclone/rclone.conf"
+    section: "MimirArchiveCrypt"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  loop:
+    - { option: "type",      value: "crypt" }
+    - { option: "remote",    value: "MimirArchive:mimir-archive-storage" }
+    - { option: "password",  value: "{{ mimir_rclone_password }}" }
+    - { option: "password2", value: "{{ mimir_rclone_password2 }}" }

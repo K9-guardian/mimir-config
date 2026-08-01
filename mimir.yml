@@ -10,4 +10,6 @@
     - { role: selinux,   tags: selinux }
     - { role: samba,     tags: samba }
     - { role: podman,    tags: podman }
+    - { role: rclone,    tags: rclone }
     - { role: borg,      tags: borg }
+    - { role: cron,      tags: cron }
