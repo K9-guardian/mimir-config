@@ -1,16 +1,17 @@
 - name: Reload podman systemd
-  become_user: podman
-  ansible.builtin.systemd:
-    daemon_reload: true
-    scope: user
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ daemon-reload"
+  changed_when: true
 
 - name: Restart podman jellyfin
-  become_user: podman
-  ansible.builtin.systemd:
-    name: "jellyfin"
-    state: restarted
-    enabled: true
-    scope: user
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ restart jellyfin"
+  changed_when: true
+
+- name: Restart podman seerr
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ restart seerr"
+  changed_when: true
 
 - name: Configure SELinux context for gluetun config
   community.general.sefcontext:
@@ -26,25 +27,16 @@
   changed_when: true
 
 - name: Restart podman slskd
-  become_user: podman
-  ansible.builtin.systemd:
-    name: "slskd-vpn-gluetun"
-    state: restarted
-    enabled: true
-    scope: user
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ restart slskd-vpn-gluetun"
+  changed_when: true
 
 - name: Restart podman nicotine
-  become_user: podman
-  ansible.builtin.systemd:
-    name: "nicotine-vpn-gluetun"
-    state: restarted
-    enabled: true
-    scope: user
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ restart nicotine-vpn-gluetun"
+  changed_when: true
 
 - name: Restart podman transmission
-  become_user: podman
-  ansible.builtin.systemd:
-    name: "transmission-vpn-gluetun"
-    state: restarted
-    enabled: true
-    scope: user
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ restart transmission-vpn-gluetun"
+  changed_when: true
