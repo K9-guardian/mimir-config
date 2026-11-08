@@ -49,6 +49,17 @@
     - Reload podman systemd
     - Restart podman seerr
 
+- name: Deploy prowlarr quadlets
+  ansible.builtin.template:
+    src: "prowlarr/prowlarr.container.j2"
+    dest: "/etc/containers/systemd/users/{{ podman_uid }}/prowlarr.container"
+    owner: root
+    group: root
+    mode: '644'
+  notify:
+    - Reload podman systemd
+    - Restart podman prowlarr
+
 - name: Copy slskd quadlets
   ansible.builtin.copy:
     src: "files/slskd/"

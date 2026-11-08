@@ -1,0 +1,12 @@
+[Container]
+AutoUpdate=registry
+ContainerName=prowlarr
+Environment=PUID={{ podman_uid }} PGID={{ podman_gid }}
+Image=lscr.io/linuxserver/prowlarr:latest
+PublishPort=9696:9696/tcp
+UserNS=keep-id
+GroupAdd=keep-groups
+Volume=prowlarr_config:/config:Z
+
+[Install]
+WantedBy=default.target
