@@ -41,6 +41,7 @@
   loop:
     - { path: "/mnt/nas/share",   owner: "root" }
     - { path: "/mnt/nas/private", owner: "root" }
+    - { path: "/mnt/nas/arr",     owner: "root" }
 
 - name: Create scratch directories
   ansible.builtin.file:
