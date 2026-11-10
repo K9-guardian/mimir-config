@@ -51,17 +51,6 @@
     - Reload podman systemd
     - Restart podman arr
 
-- name: Copy seerr quadlets
-  ansible.builtin.copy:
-    src: "files/seerr/"
-    dest: "/etc/containers/systemd/users/{{ podman_uid }}"
-    owner: root
-    group: root
-    mode: '644'
-  notify:
-    - Reload podman systemd
-    - Restart podman seerr
-
 - name: Deploy prowlarr quadlets
   ansible.builtin.template:
     src: "prowlarr/prowlarr.container.j2"

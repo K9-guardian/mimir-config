@@ -1,6 +1,6 @@
 [Pod]
-; # Seerr
-; PublishPort=5055:5055/tcp
+# Seerr
+PublishPort=5055:5055/tcp
 ; # Radarr
 ; PublishPort=7878:7878/tcp
 ; # Sonarr

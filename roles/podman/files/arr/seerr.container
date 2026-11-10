@@ -3,8 +3,7 @@ ContainerName=seerr
 DropCapability=ALL
 Environment=TZ=America/Los_Angeles
 Image=ghcr.io/seerr-team/seerr:latest
-NoNewPrivileges=true
-PublishPort=5055:5055/tcp
+Pod=arr.pod
 Volume=seerr_config:/app/config:Z
 
 [Install]
