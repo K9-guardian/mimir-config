@@ -58,6 +58,7 @@
         - "arr/prowlarr.container"
         - "arr/radarr.container"
       notify:
+        - Reload podman systemd
         - Restart podman arr
     - name: Deploy transmission-arr
       ansible.builtin.template:
@@ -69,9 +70,8 @@
       loop:
         - "arr/transmission-arr.container"
       notify:
+        - Reload podman systemd
         - Restart podman transmission-arr
-  notify:
-    - Reload podman systemd
 
 - name: Copy slskd quadlets
   ansible.builtin.copy:
