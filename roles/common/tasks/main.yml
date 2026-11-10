@@ -43,6 +43,17 @@
     - { path: "/mnt/nas/private", owner: "root" }
     - { path: "/mnt/nas/arr",     owner: "root" }
 
+- name: Create arr directories
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: nasusers
+    mode: '2775'
+  loop:
+    - { path: "/mnt/arr/movies", owner: "podman" }
+    - { path: "/mnt/arr/tv",     owner: "podman" }
+
 - name: Create scratch directories
   ansible.builtin.file:
     path: "{{ item.path }}"
