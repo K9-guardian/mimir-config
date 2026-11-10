@@ -47,20 +47,18 @@
         owner: root
         group: root
         mode: '644'
+    - name: Deploy arr files
+      ansible.builtin.template:
+        src: "{{ item }}"
+        dest: "/etc/containers/systemd/users/{{ podman_uid }}/{{ item | replace('arr/', '') | replace('.j2', '') }}"
+        owner: root
+        group: root
+        mode: '644'
+      loop:
+        - "arr/prowlarr.container.j2"
   notify:
     - Reload podman systemd
     - Restart podman arr
-
-- name: Deploy prowlarr quadlets
-  ansible.builtin.template:
-    src: "prowlarr/prowlarr.container.j2"
-    dest: "/etc/containers/systemd/users/{{ podman_uid }}/prowlarr.container"
-    owner: root
-    group: root
-    mode: '644'
-  notify:
-    - Reload podman systemd
-    - Restart podman prowlarr
 
 - name: Deploy radarr quadlets
   ansible.builtin.template:

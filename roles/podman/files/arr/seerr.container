@@ -4,7 +4,7 @@ DropCapability=ALL
 Environment=TZ=America/Los_Angeles
 Image=ghcr.io/seerr-team/seerr:latest
 Pod=arr.pod
-Volume=seerr_config:/app/config:Z
+Volume=seerr_config:/app/config:U,Z
 
 [Install]
 WantedBy=default.target

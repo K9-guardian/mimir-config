@@ -1,12 +1,13 @@
 [Pod]
 # Seerr
 PublishPort=5055:5055/tcp
+# Prowlarr
+PublishPort=9696:9696/tcp
 ; # Radarr
 ; PublishPort=7878:7878/tcp
 ; # Sonarr
 ; PublishPort=8989:8989/tcp
-; # Prowlarr
-; PublishPort=9696:9696/tcp
+UserNS=keep-id
 
 [Install]
 WantedBy=default.target

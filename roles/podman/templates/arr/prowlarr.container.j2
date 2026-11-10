@@ -4,10 +4,9 @@ ContainerName=prowlarr
 Environment=PUID={{ podman_uid }} PGID={{ podman_gid }}
 Environment=TZ=America/Los_Angeles
 Image=lscr.io/linuxserver/prowlarr:latest
-PublishPort=9696:9696/tcp
-UserNS=keep-id
+Pod=arr.pod
 GroupAdd=keep-groups
-Volume=prowlarr_config:/config:Z
+Volume=prowlarr_config:/config:U,Z
 
 [Install]
 WantedBy=default.target
