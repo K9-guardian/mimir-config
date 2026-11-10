@@ -38,6 +38,19 @@
     - Reload podman systemd
     - Restart podman jellyfin
 
+- name: Copy arr quadlets
+  block:
+    - name: Copy arr files
+      ansible.builtin.copy:
+        src: "files/arr/"
+        dest: "/etc/containers/systemd/users/{{ podman_uid }}"
+        owner: root
+        group: root
+        mode: '644'
+  notify:
+    - Reload podman systemd
+    - Restart podman arr
+
 - name: Copy seerr quadlets
   ansible.builtin.copy:
     src: "files/seerr/"
