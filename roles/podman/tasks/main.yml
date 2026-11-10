@@ -60,16 +60,16 @@
     - Reload podman systemd
     - Restart podman prowlarr
 
-# - name: Deploy radarr quadlets
-#   ansible.builtin.template:
-#     src: "radarr/radarr.container.j2"
-#     dest: "/etc/containers/systemd/users/{{ podman_uid }}/radarr.container"
-#     owner: root
-#     group: root
-#     mode: '644'
-#   notify:
-#     - Reload podman systemd
-#     - Restart podman radarr
+- name: Deploy radarr quadlets
+  ansible.builtin.template:
+    src: "radarr/radarr.container.j2"
+    dest: "/etc/containers/systemd/users/{{ podman_uid }}/radarr.container"
+    owner: root
+    group: root
+    mode: '644'
+  notify:
+    - Reload podman systemd
+    - Restart podman radarr
 
 - name: Copy slskd quadlets
   ansible.builtin.copy:

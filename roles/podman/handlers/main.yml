@@ -18,10 +18,10 @@
     cmd: "systemctl --user --machine=podman@ restart prowlarr"
   changed_when: true
 
-# - name: Restart podman radarr
-#   ansible.builtin.command:
-#     cmd: "systemctl --user --machine=podman@ restart radarr"
-#   changed_when: true
+- name: Restart podman radarr
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ restart radarr"
+  changed_when: true
 
 - name: Configure SELinux context for gluetun config
   community.general.sefcontext:
