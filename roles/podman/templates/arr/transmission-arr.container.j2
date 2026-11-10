@@ -1,0 +1,27 @@
+[Unit]
+After=gluetun-arr.service
+PartOf=gluetun-arr.service
+
+[Service]
+ExecStartPre=/usr/local/bin/get-gluetun-forwarded-port.sh 8003 PEERPORT /run/user/{{ podman_uid }}/gluetun-arr-forwarded-port.env
+Restart=on-failure
+RestartSec=5
+
+[Container]
+AutoUpdate=registry
+ContainerName=transmission-arr
+Environment=PUID={{ podman_uid }} PGID={{ podman_gid }} UMASK=002
+Environment=USER=mimir
+Environment=TZ=America/Los_Angeles
+EnvironmentFile=transmission-arr.env
+EnvironmentFile=%t/gluetun-arr-forwarded-port.env
+Image=lscr.io/linuxserver/transmission:latest
+Network=container:gluetun-arr
+UserNS=keep-id
+GroupAdd=keep-groups
+Volume=transmission_arr_config:/config:U,Z
+Volume=/mnt/nas/arr/downloads/:/downloads
+Volume=/mnt/nas/arr/watch/:/watch
+
+[Install]
+WantedBy=default.target

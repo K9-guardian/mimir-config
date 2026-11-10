@@ -1,0 +1,13 @@
+[Container]
+AddCapability=NET_ADMIN NET_RAW
+AddDevice=/dev/net/tun:/dev/net/tun
+ContainerName=gluetun-arr
+Environment=HTTP_CONTROL_SERVER_ADDRESS=:8003 VPN_SERVICE_PROVIDER=protonvpn VPN_TYPE=wireguard VPN_PORT_FORWARDING=on "SERVER_COUNTRIES=United States"
+EnvironmentFile=gluetun-arr.env
+Image=docker.io/qmcgaw/gluetun:latest
+PublishPort=9092:9091/tcp
+PublishPort=8003:8003/tcp
+Volume=./gluetun-config.toml:/gluetun/auth/config.toml:ro
+
+[Install]
+WantedBy=default.target

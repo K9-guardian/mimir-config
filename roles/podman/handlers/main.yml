@@ -13,6 +13,11 @@
     cmd: "systemctl --user --machine=podman@ restart arr-pod"
   changed_when: true
 
+- name: Restart podman transmission-arr
+  ansible.builtin.command:
+    cmd: "systemctl --user --machine=podman@ restart gluetun-arr transmission-arr"
+  changed_when: true
+
 - name: Configure SELinux context for gluetun config
   community.general.sefcontext:
     setype: container_file_t
@@ -28,15 +33,15 @@
 
 - name: Restart podman slskd
   ansible.builtin.command:
-    cmd: "systemctl --user --machine=podman@ restart slskd-vpn-gluetun"
+    cmd: "systemctl --user --machine=podman@ restart slskd-vpn-gluetun slskd-vpn-slskd"
   changed_when: true
 
 - name: Restart podman nicotine
   ansible.builtin.command:
-    cmd: "systemctl --user --machine=podman@ restart nicotine-vpn-gluetun"
+    cmd: "systemctl --user --machine=podman@ restart nicotine-vpn-gluetun nicotine-vpn-nicotine"
   changed_when: true
 
 - name: Restart podman transmission
   ansible.builtin.command:
-    cmd: "systemctl --user --machine=podman@ restart transmission-vpn-gluetun"
+    cmd: "systemctl --user --machine=podman@ restart transmission-vpn-gluetun transmission-vpn-transmission"
   changed_when: true

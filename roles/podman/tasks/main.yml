@@ -49,17 +49,29 @@
         mode: '644'
     - name: Deploy arr files
       ansible.builtin.template:
-        src: "{{ item }}"
-        dest: "/etc/containers/systemd/users/{{ podman_uid }}/{{ item | replace('arr/', '') | replace('.j2', '') }}"
+        src: "{{ item }}.j2"
+        dest: "/etc/containers/systemd/users/{{ podman_uid }}/{{ item[4:] }}"
         owner: root
         group: root
         mode: '644'
       loop:
-        - "arr/prowlarr.container.j2"
-        - "arr/radarr.container.j2"
+        - "arr/prowlarr.container"
+        - "arr/radarr.container"
+      notify:
+        - Restart podman arr
+    - name: Deploy transmission-arr
+      ansible.builtin.template:
+        src: "{{ item }}.j2"
+        dest: "/etc/containers/systemd/users/{{ podman_uid }}/{{ item[4:] }}"
+        owner: root
+        group: root
+        mode: '644'
+      loop:
+        - "arr/transmission-arr.container"
+      notify:
+        - Restart podman transmission-arr
   notify:
     - Reload podman systemd
-    - Restart podman arr
 
 - name: Copy slskd quadlets
   ansible.builtin.copy:
