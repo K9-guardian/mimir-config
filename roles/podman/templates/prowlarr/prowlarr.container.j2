@@ -2,6 +2,7 @@
 AutoUpdate=registry
 ContainerName=prowlarr
 Environment=PUID={{ podman_uid }} PGID={{ podman_gid }}
+Environment=TZ=America/Los_Angeles
 Image=lscr.io/linuxserver/prowlarr:latest
 PublishPort=9696:9696/tcp
 UserNS=keep-id
