@@ -1,3 +1,7 @@
 # LVM
 Just want a simple role to create the LVM cache and scratch drives in /mnt/nas and /mnt/scratch.
 Easiest to hardcode the disk UUIDs for this.
+
+# ARR
+Set up FlareSolverr for 1337x on Prowlarr
+https://github.com/FlareSolverr/FlareSolverr
