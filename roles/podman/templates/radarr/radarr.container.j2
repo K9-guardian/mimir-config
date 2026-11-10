@@ -1,0 +1,14 @@
+[Container]
+AutoUpdate=registry
+ContainerName=radarr
+Environment=PUID={{ podman_uid }} PGID={{ podman_gid }} UMASK=002
+Environment=TZ=America/Los_Angeles
+Image=lscr.io/linuxserver/radarr:latest
+PublishPort=7878:7878/tcp
+UserNS=keep-id
+GroupAdd=keep-groups
+Volume=radar_config:/config:Z
+Volume=/mnt/nas/arr/movies:/data:Z
+
+[Install]
+WantedBy=default.target
