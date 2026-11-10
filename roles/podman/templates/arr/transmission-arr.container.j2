@@ -20,8 +20,7 @@ Network=container:gluetun-arr
 UserNS=keep-id
 GroupAdd=keep-groups
 Volume=transmission_arr_config:/config:U,Z
-Volume=/mnt/nas/arr/downloads/:/downloads
-Volume=/mnt/nas/arr/watch/:/watch
+Volume=/mnt/nas/arr:/data
 
 [Install]
 WantedBy=default.target
