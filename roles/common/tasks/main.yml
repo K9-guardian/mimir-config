@@ -51,9 +51,10 @@
     group: nasusers
     mode: '2775'
   loop:
-    - { path: "/mnt/nas/arr/downloads", owner: "podman" }
-    - { path: "/mnt/nas/arr/watch",     owner: "podman" }
-    - { path: "/mnt/nas/arr/media",     owner: "podman" }
+    - { path: "/mnt/nas/arr/downloads",    owner: "podman" }
+    - { path: "/mnt/nas/arr/watch",        owner: "podman" }
+    - { path: "/mnt/nas/arr/media/movies", owner: "podman" }
+    - { path: "/mnt/nas/arr/media/tv",     owner: "podman" }
 
 - name: Create scratch directories
   ansible.builtin.file:
