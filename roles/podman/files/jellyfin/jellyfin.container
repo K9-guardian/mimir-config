@@ -10,6 +10,7 @@ GroupAdd=keep-groups
 Volume=jellyfin_config:/config:Z
 Volume=jellyfin_cache:/cache:Z
 Volume=/mnt/nas/share:/media:ro
+Volume=/mnt/nas/arr:/media_arr:ro
 
 [Install]
 WantedBy=default.target
